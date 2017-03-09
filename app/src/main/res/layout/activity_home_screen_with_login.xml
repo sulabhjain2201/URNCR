@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg" >
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar" >
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="UrNcr"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#dedede"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/logout_btn" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/username_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Welcome Sulabh"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
+
+    
+      <RelativeLayout
+        android:id="@+id/center_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <Button
+            android:id="@+id/painMgmtSpecBtn"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:text="@string/facility_name"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_one">
+        </Button>
+         <Button
+            android:id="@+id/find_physician"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/painMgmtSpecBtn"
+            android:text="Find a Doctor"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_one">
+        </Button>
+         <Button
+            android:id="@+id/find_facility"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/find_physician"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Find a Facility"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_one">
+        </Button>
+        <Button
+            android:id="@+id/btnSearchDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/find_facility"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_one"
+            android:text="Search a Center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" >
+        </Button>
+         <Button
+            android:id="@+id/btnChat"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btnSearchDoctor"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Text Chat"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_one">
+        </Button>
+         
+    </RelativeLayout>
+
+</RelativeLayout>
