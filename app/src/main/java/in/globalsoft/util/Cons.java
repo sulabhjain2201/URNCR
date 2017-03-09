@@ -8,7 +8,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -58,7 +60,7 @@ public class Cons
     public static String url_getOfficeBydoctorId="http://www.urncr.com/CarrxonWebServices/ws/getDoctocByOfficeId.php?doctor_id=";
 	public static String url_special_doctors_by_speciality="http://urncr.com/CarrxonWebServices/ws/list_special_doctors.php?speciality_id=";
 	public static  String url_add_admin_doctor_info = "http://urncr.com/CarrxonWebServices/ws/add_admin_doctor.php?";
-
+	public static final String URL_COPAY_SAVING_CARDS = "http://urncr.com/CarrxonWebServices/ws/saving_cards.php?";
 	public static  final int ADD_DOCTOR = 0;
 	public static  final int UPDATE_DOCTOR = 1;
 
@@ -213,6 +215,13 @@ public class Cons
 		return cal;
 	}
 
+	public static boolean isNullOrEmpty( final Collection< ? > c ) {
+		return c == null || c.isEmpty();
+	}
+
+	public static boolean isNullOrEmpty( final Map< ?, ? > m ) {
+		return m == null || m.isEmpty();
+	}
 
 
 }

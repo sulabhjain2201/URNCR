@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.globalsoft.urncr"
     android:versionCode="3"
-    android:versionName="1.3" >
+    android:versionName="1.3">
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -23,8 +23,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <permission
         android:name="in.globalsoft.urncr.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -46,19 +46,19 @@
         android:maxSdkVersion="18" />
 
     <application
-        android:name="in.globalsoft.urncr.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar" >
+        android:theme="@android:style/Theme.NoTitleBar">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="in.globalsoft.urncr.SplashScreen"
+            android:name=".SplashScreen"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,85 +66,70 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="in.globalsoft.urncr.HomeScreen"
+            android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.Home_Physician"
+            android:name=".Home_Physician"
             android:label="@string/title_activity_home__physician"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.DoctorOfficeHomeActivity"
+            android:name=".DoctorOfficeHomeActivity"
             android:label="@string/title_activity_home__physician"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.LoginScreen"
+            android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.RegisterScreen1"
+            android:name=".RegisterScreen1"
             android:label="@string/title_activity_register_screen"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="in.globalsoft.urncr.RecentOfficeChatActivity"
+            android:name=".RecentOfficeChatActivity"
             android:label="@string/title_activity_register_screen"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="in.globalsoft.urncr.DoctorOfficeInfo"
+            android:name=".DoctorOfficeInfo"
             android:label="@string/title_activity_register_screen2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.RegisterScreen2"
+            android:name=".RegisterScreen2"
             android:label="@string/title_activity_register_screen2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalList"
+            android:name=".HospitalList"
             android:label="@string/title_activity_hospital_list"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.ListDoctors"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:name=".ListDoctors"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.CheckInScreen"
+            android:name=".CheckInScreen"
             android:label="@string/title_activity_check_in_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalDescription"
+            android:name=".HospitalDescription"
             android:label="@string/title_activity_hospital_description"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.SearchDoctor"
+            android:name=".SearchDoctor"
             android:label="@string/title_activity_hospital_description"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.OfficeChatActivity"
+            android:name=".OfficeChatActivity"
             android:label="@string/title_activity_hospital_description"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalsMap"
+            android:name=".HospitalsMap"
             android:label="@string/title_activity_hospitals_map"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
 
         <receiver
-            android:name="in.globalsoft.urncr.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -152,179 +137,148 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="in.globalsoft.urncr.GcmIntentService" />
+        <service android:name=".GcmIntentService" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDafsZSD2kx1I-GPFhp7_KEG9p5w7C2NtI" />
 
         <activity
-            android:name="in.globalsoft.urncr.CheckInOptions"
+            android:name=".CheckInOptions"
             android:label="@string/title_activity_check_in_options"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.InfoVerification"
+            android:name=".InfoVerification"
             android:label="@string/title_activity_info_verification"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="in.globalsoft.urncr.SelectPatient"
+            android:name=".SelectPatient"
             android:label="@string/title_activity_select_patient"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PatientInfo1"
+            android:name=".PatientInfo1"
             android:label="@string/title_activity_patient_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PatientInfo2"
+            android:name=".PatientInfo2"
             android:label="@string/title_activity_patient_info2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalsMap1"
+            android:name=".HospitalsMap1"
             android:label="@string/title_activity_hospitals_map1"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.SymptomScreen"
+            android:name=".SymptomScreen"
             android:label="@string/title_activity_symptom_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HomeScreenWithLogin"
+            android:name=".HomeScreenWithLogin"
             android:label="@string/title_activity_home_screen_with_login"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.InsuredPersonInfo"
+            android:name=".InsuredPersonInfo"
             android:label="@string/title_activity_insured_person_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.InsuranceInfo"
+            android:name=".InsuranceInfo"
             android:label="@string/title_activity_insurance_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.ContactInfo"
+            android:name=".ContactInfo"
             android:label="@string/title_activity_contact_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
 
-        <receiver android:name="in.globalsoft.urncr.UserOnlineInfo" >
-        </receiver>
+        <receiver android:name=".UserOnlineInfo" />
 
         <activity
-            android:name="in.globalsoft.urncr.WorkInjury"
+            android:name=".WorkInjury"
             android:label="@string/title_activity_work_injury"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PreviousVisitScreen"
+            android:name=".PreviousVisitScreen"
             android:label="@string/title_activity_previous_visit_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.FacilityList"
+            android:name=".FacilityList"
             android:label="@string/title_activity_facility_list"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PhysicianList"
+            android:name=".PhysicianList"
             android:label="@string/title_activity_physician_list"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalRegistration"
+            android:name=".HospitalRegistration"
             android:label="@string/title_activity_hospital_registration"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.AddDoctor"
+            android:name=".AddDoctor"
             android:label="@string/title_activity_add_doctor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PhysicianDetail"
+            android:name=".PhysicianDetail"
             android:label="@string/title_activity_physician_detail"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalRegistration2"
+            android:name=".HospitalRegistration2"
             android:label="@string/title_activity_hospital_registration2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.AddClinicShedule"
+            android:name=".AddClinicShedule"
             android:label="@string/title_activity_add_clinic_shedule"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.PhysicainDetail"
+            android:name=".PhysicainDetail"
             android:label="@string/title_activity_physicain_detail"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.GetDoctorLIst"
+            android:name=".GetDoctorLIst"
             android:label="@string/title_activity_get_doctor_list"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.HospitalHomeScreen"
+            android:name=".HospitalHomeScreen"
             android:label="@string/title_activity_hospital_home_screen"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.ListBusinessPersons"
+            android:name=".ListBusinessPersons"
             android:label="@string/title_activity_list_business_persons"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.DisplayDoctorInfo"
+            android:name=".DisplayDoctorInfo"
             android:label="@string/title_activity_display_doctor_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.UpateStatusInfo"
+            android:name=".UpateStatusInfo"
             android:label="@string/title_activity_display_doctor_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.BookedAppointments"
+            android:name=".BookedAppointments"
             android:label="@string/title_activity_display_doctor_info"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.AvailableAppointments"
+            android:name=".AvailableAppointments"
             android:label="@string/title_activity_available_appointments"
             android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.AddProfessionalInfo"
+            android:name=".AddProfessionalInfo"
             android:label="@string/title_activity_available_appointments"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.RecentChatActivity"
+            android:name=".RecentChatActivity"
             android:label="@string/title_activity_home__physician"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.ChatActivity"
+            android:name=".ChatActivity"
             android:label="@string/title_activity_home__physician"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="in.globalsoft.urncr.RecentOfficeChat"
-            android:label="@string/title_activity_recent_office_chat" >
-        </activity>
+            android:name=".RecentOfficeChat"
+            android:label="@string/title_activity_recent_office_chat" />
         <activity
-            android:name="in.globalsoft.urncr.RecentOfficePatientsForAppointment"
-            android:label="@string/title_activity_recent_office_patients_for_appointment" >
-        </activity>
+            android:name=".RecentOfficePatientsForAppointment"
+            android:label="@string/title_activity_recent_office_patients_for_appointment" />
+        <activity android:name=".ListCopaySavingCardsActivity" />
+        <activity android:name=".CopaySavingDetailActivity"></activity>
     </application>
 
 </manifest>

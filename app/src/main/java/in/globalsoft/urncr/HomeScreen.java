@@ -14,9 +14,9 @@ import android.widget.Button;
 
 public class HomeScreen extends Activity 
 {
-	Button btn_register,btn_login,btn_physician_n_fac,btn_hospitalRegistration,btn_search_doctor;
-	Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btnChatNow;
-	AppPreferences appPref;
+	private  Button btn_register,btn_login,btn_physician_n_fac,btn_hospitalRegistration,btn_search_doctor;
+	private Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btnChatNow , btnSavingCards;
+	private AppPreferences appPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,16 @@ public class HomeScreen extends Activity
         btn_findFacility = (Button) findViewById(R.id.find_facility);
         btn_search_doctor = (Button) findViewById(R.id.btnSearchDoctor);
         btnChatNow = (Button) findViewById(R.id.btnChatNow);
+        btnSavingCards = (Button) findViewById(R.id.copay_saving_btn);
+
+        btnSavingCards.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HomeScreen.this , ListCopaySavingCardsActivity.class);
+                startActivity(i);
+            }
+        });
+
         btn_search_doctor.setOnClickListener(new OnClickListener() {
 
             @Override
