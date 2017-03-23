@@ -22,11 +22,12 @@ import java.util.ArrayList;
 
 public class HomeScreenWithLogin extends Activity 
 {
-	Button btn_logOut,btnChat;
-	AppPreferences appPref;
-	BeansLogin loginBeans;
-	TextView tv_userName;
-	Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btn_search_doctor;
+	private Button btn_logOut,btnChat;
+	private AppPreferences appPref;
+	private BeansLogin loginBeans;
+	private TextView tv_userName;
+	private Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btn_search_doctor;
+	private Button btnSavingCards;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -103,7 +104,16 @@ btn_search_doctor=(Button)findViewById(R.id.btnSearchDoctor);
 				
 			}
 		});
-		
+
+		btnSavingCards = (Button) findViewById(R.id.copay_saving_btn);
+
+		btnSavingCards.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(HomeScreenWithLogin.this , ListCopaySavingCardsActivity.class);
+				startActivity(i);
+			}
+		});
 		
 		btn_logOut.setOnClickListener(new OnClickListener()
 		{

@@ -59,21 +59,10 @@
         android:layout_centerInParent="true" >
 
         <Button
-            android:id="@+id/copay_saving_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_one"
-            android:text="@string/copay_saving_button"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" >
-        </Button>
-
-        <Button
             android:id="@+id/painManagemet_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_one"
-            android:layout_below="@+id/copay_saving_btn"
             android:text="@string/facility_name"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -104,6 +93,7 @@
             android:textColor="@android:color/white" >
         </Button>
 
+
 <!--         <Button -->
 <!--             android:id="@+id/btnCustomSearch" -->
 <!--             android:layout_width="wrap_content" -->
@@ -127,11 +117,24 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white" >
         </Button>
+
+        <Button
+            android:id="@+id/copay_saving_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_one"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btnSearchDoctor"
+            android:text="@string/copay_saving_button"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" >
+        </Button>
+
         <Button
             android:id="@+id/btnChatNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnSearchDoctor"
+            android:layout_below="@+id/copay_saving_btn"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_one"
             android:text="Chat Now"
