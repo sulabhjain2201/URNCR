@@ -22,7 +22,6 @@ public class SearchAllDoctorsByPatientTask extends AsyncTask<Void, Void, Void>{
 	{
 		this.con=con;
 		pref=new AppPreferences(con);
-        speciality_id = con.getString(R.string.speciality_id);
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class SearchAllDoctorsByPatientTask extends AsyncTask<Void, Void, Void>{
 		// TODO Auto-generated method stub
         String url = "";
 
-		 url="http://urncr.com/CarrxonWebServices/ws/searchDoctor.php?specaility_id="+speciality_id+"&patient_id="+pref.getUserId();
+		 url=Cons.URL_SEARCHDOCTORBY_PATIENT+speciality_id+"&patient_id="+pref.getUserId();
 
 		response=Cons.http_connection(url);
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.globalsoft.urncr"
-    android:versionCode="4"
-    android:versionName="1.4">
+    android:versionCode="6"
+    android:versionName="1.6">
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="14" />
 
     <permission
@@ -102,6 +102,7 @@
         <activity
             android:name=".HospitalList"
             android:label="@string/title_activity_hospital_list"
+            android:theme="@style/DoctorListTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ListDoctors"

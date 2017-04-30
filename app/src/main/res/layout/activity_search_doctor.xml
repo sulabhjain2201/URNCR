@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="CARRXON"
+            android:text="FILTER"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#dedede"
             android:textStyle="bold" />
@@ -29,21 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Search by name"/>
-    
-    <EditText 
-        android:id="@+id/et_search_city"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/et_search_name"
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search by city"/>
-    
+
     <RelativeLayout
                 android:id="@+id/doctor_speciality_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_search_city"
+                android:layout_below="@+id/et_search_name"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -74,11 +65,125 @@
                     android:textColor="#606060" />
             </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/country_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/doctor_speciality_layout"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/doctor_image"
+        android:background="@drawable/drop_down_menu_bg"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp" >
+
+        <ImageView
+            android:id="@+id/country_layout_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/drop_down_menu_arrow" />
+
+        <TextView
+            android:id="@+id/country_layout_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:text="Search By Country"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#606060" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/state_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/country_layout"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/doctor_image"
+        android:background="@drawable/drop_down_menu_bg"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp" >
+
+        <ImageView
+            android:id="@+id/state_layout_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/drop_down_menu_arrow" />
+
+        <TextView
+            android:id="@+id/state_layout_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:text="Search By State"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#606060" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/city_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/state_layout"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/doctor_image"
+        android:background="@drawable/drop_down_menu_bg"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp" >
+
+        <ImageView
+            android:id="@+id/city_layout_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/drop_down_menu_arrow" />
+
+        <TextView
+            android:id="@+id/city_layout_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:text="Search By City"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#606060" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_search_zip"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/city_layout"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search by Zip code"/>
+
     <Button
                 android:id="@+id/search_doctor_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/doctor_speciality_layout"
+                android:layout_below="@+id/et_search_zip"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_one"
                 android:text="Search"

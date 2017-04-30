@@ -59,6 +59,8 @@ public class Cons
 	public static String url_doctor_office_registration="http://www.urncr.com/CarrxonWebServices/ws/addDoctorOfficeInfo.php?doctor_id=";
     public static String url_getOfficeBydoctorId="http://www.urncr.com/CarrxonWebServices/ws/getDoctocByOfficeId.php?doctor_id=";
 	public static String url_special_doctors_by_speciality="http://urncr.com/CarrxonWebServices/ws/list_special_doctors.php?speciality_id=";
+    public static String URL_SEARCHDOCTORBY_NAME_LOCATION="http://urncr.com/CarrxonWebServices/ws/search_by_fields.php?speciality_id=";
+	public static String URL_SEARCHDOCTORBY_PATIENT="http://urncr.com/CarrxonWebServices/ws/searchDoctor.php?speciality_id=";
 	public static  String url_add_admin_doctor_info = "http://urncr.com/CarrxonWebServices/ws/add_admin_doctor.php?";
 	public static final String URL_COPAY_SAVING_CARDS = "http://urncr.com/CarrxonWebServices/ws/saving_cards.php?";
 	public static  final int ADD_DOCTOR = 0;

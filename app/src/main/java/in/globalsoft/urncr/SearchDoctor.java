@@ -31,13 +31,13 @@ import android.widget.Toast;
 
 public class SearchDoctor extends Activity{
 	
-	TextView tv_speciality;
-	RelativeLayout layout_speciality;
-	EditText et_name, et_city;
-	
-	Button search_doctor;
-	
-	String str_speciality;
+	private TextView tv_speciality;
+	private RelativeLayout layout_speciality ,rlCountry , rlState , rlCity;
+	private EditText et_name, et_city;
+
+	private Button search_doctor;
+
+	private String str_speciality;
 	
 	String url , data;
 	private AlertDialog dialog_speciality;
@@ -55,9 +55,20 @@ public class SearchDoctor extends Activity{
 		
 		tv_speciality = (TextView) findViewById(R.id.doctor_speciality_text);
 		layout_speciality = (RelativeLayout) findViewById(R.id.doctor_speciality_layout);
-		
+
+		rlCountry = (RelativeLayout) findViewById(R.id.country_layout);
+		rlState = (RelativeLayout) findViewById(R.id.state_layout);
+		rlCity = (RelativeLayout) findViewById(R.id.city_layout);
+
 		et_name=(EditText)findViewById(R.id.et_search_name);
-		et_city=(EditText)findViewById(R.id.et_search_city);
+		//et_city=(EditText)findViewById(R.id.et_search_city);
+
+		rlCountry.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+			}
+		});
 		
 		search_doctor= (Button)findViewById(R.id.search_doctor_btn);
 		

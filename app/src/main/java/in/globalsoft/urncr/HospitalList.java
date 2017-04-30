@@ -12,6 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +32,7 @@ public class HospitalList extends Activity
 	AppPreferences appPref;
 	private  String data;
 	private int specialityId;
+	private SearchView searchView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -41,10 +45,42 @@ public class HospitalList extends Activity
 		specialityId = getIntent().getIntExtra("speciality_id",0);
 		tv_title.setText(appPref.getMapType().toUpperCase());
 		listHospital = (ListView)findViewById(R.id.list_hospitals);
+		searchView = (SearchView) findViewById(R.id.search);
+		searchView.setActivated(true);
+		TextView searchText = (TextView)
+				searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+		searchText.setTextSize(12);
+		searchView.setQueryHint("Search by Hospital name , country , state , city or Zip");
+		searchView.onActionViewExpanded();
+		searchView.setIconified(false);
+		searchView.clearFocus();
 		hospitalListBeans = null;
-		new SpecialDoctorTask().execute();
+		new SpecialDoctorTask(Cons.url_special_doctors_by_speciality+specialityId).execute();
 		//listHospital.setAdapter(new AdapterSearchDoctorsList(this, hospitalListBeans.getHospital_list()));
-		
+
+	searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+		@Override
+		public boolean onQueryTextSubmit(String query) {
+
+			hospitalListBeans = null;
+			if(query.length()>0) {
+				new SpecialDoctorTask(Cons.URL_SEARCHDOCTORBY_NAME_LOCATION + specialityId + "&query=" + query).execute();
+			}
+			else {
+				new SpecialDoctorTask(Cons.url_special_doctors_by_speciality+specialityId).execute();
+			}
+			return false;
+		}
+
+		@Override
+		public boolean onQueryTextChange(String newText) {
+			if(newText.equals("")) {
+				hospitalListBeans = null;
+				new SpecialDoctorTask(Cons.url_special_doctors_by_speciality+specialityId).execute();
+			}
+			return false;
+		}
+	});
 	listHospital.setOnItemClickListener(new OnItemClickListener()
 	{
 
@@ -73,6 +109,10 @@ public class HospitalList extends Activity
 
 	private class SpecialDoctorTask extends AsyncTask<Void, Void, Void> {
 
+		private String url;
+		SpecialDoctorTask(String url) {
+			this.url = url;
+		}
 
 		ProgressDialog pd;
 
@@ -90,8 +130,8 @@ public class HospitalList extends Activity
 		{
 			try
 			{
-				String specialDoctorUrl = Cons.url_special_doctors_by_speciality+specialityId;
-				data = Cons.http_connection(specialDoctorUrl);
+
+				data = Cons.http_connection(url);
 				System.out.println("data::"+data);
 				if(data!=null)
 				{
