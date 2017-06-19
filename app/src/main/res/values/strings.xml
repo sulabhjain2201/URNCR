@@ -63,5 +63,9 @@
     <string name="speciality_id">64</string>
     <string name="copay_saving_button">Copay Saving Cards</string>
     <string name="net_not_available">Internet is not available</string>
+    <string name="share_text">Join URNCR.com so you can help more patients.</string>
+    <string name="share_text_doctor">Join URNCR.com so you can help more patients.</string>
+    <string name="share_text_patient">Join URNCR.com to get access to Doctor same day.</string>
+    <string name="share_text_health_care">Join URNCR.com so you can help more patients.</string>
 
 </resources>

@@ -10,12 +10,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class HomeScreenWithLogin extends Activity
 	private TextView tv_userName;
 	private Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btn_search_doctor;
 	private Button btnSavingCards;
+	private Button btnInvite;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +46,45 @@ public class HomeScreenWithLogin extends Activity
 		btn_findFacility= (Button) findViewById(R.id.find_facility);
 		tv_userName = (TextView)findViewById(R.id.username_text);
 		btnChat=(Button) findViewById(R.id.btnChat);
+		btnInvite = (Button) findViewById(R.id.invite_btn);
 		setUserName();
+
+		btnInvite.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				PopupMenu popup = new PopupMenu(HomeScreenWithLogin.this, btnInvite);
+				popup.getMenuInflater().inflate(R.menu.popup_share_patient, popup.getMenu());
+
+				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+					public boolean onMenuItemClick(MenuItem item) {
+						Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+						sharingIntent.setType("text/html");
+						if(item.getItemId() == R.id.doctor_share){
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
+
+						}
+						else if(item.getItemId() == R.id.patient_share) {
+
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
+
+						}
+						else {
+
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
+
+						}
+						startActivity(Intent.createChooser(sharingIntent,"Invite using"));
+						return true;
+					}
+				});
+
+				popup.show();
+
+
+
+			}
+		});
 		
 btn_search_doctor=(Button)findViewById(R.id.btnSearchDoctor);
 		

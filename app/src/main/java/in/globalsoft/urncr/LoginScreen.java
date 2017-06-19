@@ -9,6 +9,9 @@ import in.globalsoft.util.Cons;
 import in.globalsoft.util.ParseInfo;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONException;
@@ -125,7 +128,12 @@ public class LoginScreen extends Activity
 		{
 			String userName = et_username.getText().toString();
 			String password = et_password.getText().toString();
-			String url = Cons.url_login+"username="+userName+"&password="+password+"&type="+str_loginType+"&device_id="+regid;
+			String url = null;
+			try {
+				url = Cons.url_login+"username="+URLEncoder.encode(userName,"utf-8")+"&password="+URLEncoder.encode(password,"utf-8")+"&type="+str_loginType+"&device_id="+regid;
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 			responseString = Cons.http_connection(url);
 			if(responseString == null)
 			{

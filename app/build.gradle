@@ -1,12 +1,15 @@
 apply plugin: 'com.android.application'
+repositories {
+    jcenter()
 
+}
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "in.globalsoft.urncr"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 25
     }
 
@@ -39,4 +42,8 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:appcompat-v7:25.2.0'
+
+
+
+
 }

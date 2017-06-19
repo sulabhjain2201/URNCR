@@ -257,6 +257,18 @@ public class AppPreferences
 	  prefsEditor.commit();
 
 	 }
+
+	public boolean getStoragePermission()
+	{
+		return appSharedPrefs.getBoolean("storage_permission", false);
+	}
+
+	public void setStoragePermission(boolean isStoragePermission)
+	{
+		prefsEditor.putBoolean("storage_permission", isStoragePermission);
+		prefsEditor.commit();
+
+	}
 	 
 	 public String getRecentDocotsChat()
 	 {

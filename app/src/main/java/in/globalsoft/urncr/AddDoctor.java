@@ -1,9 +1,13 @@
 package in.globalsoft.urncr;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +17,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +35,7 @@ import com.google.android.gms.location.LocationRequest;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,11 +44,14 @@ import in.globalsoft.urncr.R;
 import in.globalsoft.preferences.AppPreferences;
 import in.globalsoft.util.Cons;
 
+
 public class AddDoctor extends Activity
 {
 
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_FILE = 2;
+    private static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT =  200;
+    private static final int REQUEST_PERMISSION_SETTING = 201;
     AlertDialog dialog_upload_bill;
     private Uri mImageCaptureUri;
     Bitmap bitmap = null;
@@ -70,6 +80,8 @@ public class AddDoctor extends Activity
     private LocationClient locationClient;
     LocationRequest mLocationRequest;
 
+    private boolean sentToSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -84,8 +96,69 @@ public class AddDoctor extends Activity
             @Override
             public void onClick(View v)
             {
-                create_dialog_for_upload_bill();
-                dialog_upload_bill.show();
+
+                if (ActivityCompat.checkSelfPermission(AddDoctor.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AddDoctor.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        //Show Information about why you need the permission
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddDoctor.this);
+                        builder.setTitle("Need Storage Permission");
+                        builder.setMessage("This app needs storage permission.");
+                        builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                ActivityCompat.requestPermissions(AddDoctor.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+                }
+// else if (appPref.getStoragePermission()) {
+//                        //Previously Permission Request was cancelled with 'Dont Ask Again',
+//                        // Redirect to Settings after showing Information about why you need the permission
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(AddDoctor.this);
+//                        builder.setTitle("Need Storage Permission");
+//                        builder.setMessage("This app needs storage permission.");
+//                        builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                                sentToSettings = true;
+//                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+//                                intent.setData(uri);
+//                                startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
+//                                Toast.makeText(getBaseContext(), "Go to Permissions to Grant Storage", Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                        builder.show();
+//                    }
+                      else {
+                        //just request the permission
+                        ActivityCompat.requestPermissions(AddDoctor.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
+                    }
+
+                   appPref.setStoragePermission(true);
+
+
+                } else {
+                    //You already have the permission, just go ahead.
+                    create_dialog_for_upload_bill();
+                    dialog_upload_bill.show();
+                }
+
+
 
 
             }
@@ -152,9 +225,11 @@ public class AddDoctor extends Activity
 */
     }
 
-    private void init() {
+    public void init() {
         // TODO Auto-generated method stub
         iv_doctor_image = (ImageView) findViewById(R.id.doctor_image);
+
+
 
 
         tv_speciality = (TextView) findViewById(R.id.doctor_speciality_text);
@@ -172,7 +247,6 @@ public class AddDoctor extends Activity
         btn_addDoctor = (Button) findViewById(R.id.add_doctor_btn);
 
     }
-
 
     public void create_dialog_for_upload_bill()
     {
@@ -218,14 +292,23 @@ public class AddDoctor extends Activity
 
         dialog_upload_bill = builder.create();
 
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (resultCode != RESULT_OK)
             return;
 
-
+        if (requestCode == REQUEST_PERMISSION_SETTING) {
+            if (ActivityCompat.checkSelfPermission(AddDoctor.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                //Got Permission
+                create_dialog_for_upload_bill();
+                dialog_upload_bill.show();
+            }
+        }
 
         if (requestCode == PICK_FROM_FILE) {
             mImageCaptureUri = data.getData();
@@ -235,6 +318,7 @@ public class AddDoctor extends Activity
                 path = mImageCaptureUri.getPath(); // from File Manager
 
             if (path != null) {
+
                 bitmap = BitmapFactory.decodeFile(path);
                 bitmap = Bitmap.createScaledBitmap(bitmap, 140, 140, false);
             }
@@ -295,7 +379,7 @@ public class AddDoctor extends Activity
     }
     public String getRealPathFromURI(Uri contentUri) {
         String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
 
         if (cursor == null)
             return null;
@@ -388,7 +472,44 @@ public class AddDoctor extends Activity
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == EXTERNAL_STORAGE_PERMISSION_CONSTANT) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //The External Storage Write Permission is granted to you... Continue your left job...
+                create_dialog_for_upload_bill();
+                dialog_upload_bill.show();
+            } else {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(AddDoctor.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    //Show Information about why you need the permission
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddDoctor.this);
+                    builder.setTitle("Need Storage Permission");
+                    builder.setMessage("This app needs storage permission");
+                    builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
 
+
+                            ActivityCompat.requestPermissions(AddDoctor.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
+
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Toast.makeText(getBaseContext(),"Unable to get Permission",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 
 
 

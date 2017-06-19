@@ -22,10 +22,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ public class DisplayDoctorInfo extends Activity
 	Bitmap bitmap;
 	AppPreferences appPref;
 	Button btn_logout,btnChat;
+	private Button btnInvite;
 	
 
 	@Override
@@ -52,6 +56,7 @@ public class DisplayDoctorInfo extends Activity
 		setContentView(R.layout.activity_display_doctor_info);
 		appPref = new AppPreferences(this);
 		btn_logout = (Button) findViewById(R.id.logout_btn);
+		btnInvite = (Button) findViewById(R.id.invite_btn);
 		btn_updateSchdule = (Button)findViewById(R.id.update_schdule_btn);
 		Button btn_updateProfessionalInfo = (Button)findViewById(R.id.update_professionalInfo);
 		
@@ -63,8 +68,8 @@ public class DisplayDoctorInfo extends Activity
 		
 		tv_clinic_hours = (TextView)findViewById(R.id.clinic_hours);
 		btn_continue = (Button) findViewById(R.id.continue_btn);
-		
-		
+
+
 		
 		
 		if(Cons.isNetworkAvailable(DisplayDoctorInfo.this))
@@ -150,6 +155,43 @@ public class DisplayDoctorInfo extends Activity
 				Intent i = new Intent(DisplayDoctorInfo.this,BookedAppointments.class);
 				startActivity(i);
 				
+			}
+		});
+
+		btnInvite.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				PopupMenu popup = new PopupMenu(DisplayDoctorInfo.this, btnInvite);
+				popup.getMenuInflater().inflate(R.menu.popup_share_doctor, popup.getMenu());
+
+				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+					public boolean onMenuItemClick(MenuItem item) {
+						Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+						sharingIntent.setType("text/html");
+						if(item.getItemId() == R.id.doctor_share){
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
+
+						}
+						else if(item.getItemId() == R.id.patient_share) {
+
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
+
+						}
+						else {
+
+							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
+
+						}
+						startActivity(Intent.createChooser(sharingIntent,"Invite using"));
+						return true;
+					}
+				});
+
+				popup.show();
+
+
+
 			}
 		});
 		
