@@ -1,9 +1,5 @@
 package in.globalsoft.urncr;
 
-import in.globalsoft.beans.BeansLogin;
-import in.globalsoft.urncr.R;
-import in.globalsoft.preferences.AppPreferences;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,10 +14,12 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.google.android.gms.common.SignInButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import in.globalsoft.beans.BeansLogin;
+import in.globalsoft.preferences.AppPreferences;
 
 public class HomeScreenWithLogin extends Activity 
 {
@@ -31,7 +29,7 @@ public class HomeScreenWithLogin extends Activity
 	private TextView tv_userName;
 	private Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btn_search_doctor;
 	private Button btnSavingCards;
-	private Button btnInvite;
+	private Button btnInvite,uploadADocument,saved_document;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,10 +42,28 @@ public class HomeScreenWithLogin extends Activity
 		btn_painMgmtSpecialities = (Button) findViewById(R.id.painMgmtSpecBtn);
 		btn_findPhysian = (Button) findViewById(R.id.find_physician);
 		btn_findFacility= (Button) findViewById(R.id.find_facility);
+		uploadADocument= (Button) findViewById(R.id.upload_a_document);
+		saved_document= (Button) findViewById(R.id.saved_document);
 		tv_userName = (TextView)findViewById(R.id.username_text);
 		btnChat=(Button) findViewById(R.id.btnChat);
 		btnInvite = (Button) findViewById(R.id.invite_btn);
 		setUserName();
+
+		uploadADocument.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent=new Intent(HomeScreenWithLogin.this,UploadDocument.class);
+				startActivity(intent);
+			}
+		});
+
+		saved_document.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent=new Intent(HomeScreenWithLogin.this,SavedDocuments.class);
+				startActivity(intent);
+			}
+		});
 
 		btnInvite.setOnClickListener(new OnClickListener() {
 			@Override
@@ -61,17 +77,17 @@ public class HomeScreenWithLogin extends Activity
 						Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 						sharingIntent.setType("text/html");
 						if(item.getItemId() == R.id.doctor_share){
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
 
 						}
 						else if(item.getItemId() == R.id.patient_share) {
 
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
 
 						}
 						else {
 
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
 
 						}
 						startActivity(Intent.createChooser(sharingIntent,"Invite using"));

@@ -1,5 +1,16 @@
 package in.globalsoft.util;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -12,16 +23,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
+import in.globalsoft.pojo.SavedDocPojo;
 
 public class Cons 
 {
+	public static String DOC_UPLOAD_URL = "http://urncr.com/CarrxonWebServices/ws/document_upload.php";
 	public static int screenWidth,screenHeight;
 	public static int isNetAvail = 0;
 	public static String url_login = "http://urncr.com/CarrxonWebServices/ws/patient_login.php?";
@@ -65,6 +71,8 @@ public class Cons
 	public static final String URL_COPAY_SAVING_CARDS = "http://urncr.com/CarrxonWebServices/ws/saving_cards.php?";
 	public static  final int ADD_DOCTOR = 0;
 	public static  final int UPDATE_DOCTOR = 1;
+	public static String saved_doc_url="http://urncr.com/CarrxonWebServices/ws/patient_docs.php?user_id=";
+	public static String download_url="http://urncr.com/CarrxonWebServices/ws/";
 
 	public static void getScreen_Height(Activity c)
 	{
@@ -226,4 +234,25 @@ public class Cons
 	}
 
 
+	public static void downLoad(Context ctx, SavedDocPojo savedDocPojo) {
+		try {
+
+
+			DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Cons.download_url+savedDocPojo.getDoc_url()));
+			request.setDescription("file downloading..");
+			request.setTitle("Urncr");
+// in order for this if to run, you must use the android 3.2 to compile your app
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+				request.allowScanningByMediaScanner();
+				request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+			}
+			request.setDestinationInExternalPublicDir("/URNCR_FILES",savedDocPojo.getAttach_name());
+
+// get download service and enqueue file
+			DownloadManager manager = (DownloadManager) ctx.getSystemService(Context.DOWNLOAD_SERVICE);
+			manager.enqueue(request);
+		} catch (Exception e) {
+			Log.e("Document Error", e.getMessage());
+		}
+	}
 }

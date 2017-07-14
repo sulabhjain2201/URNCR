@@ -51,8 +51,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HospitalsMap1 extends FragmentActivity implements com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks,
-        com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener,
+public class HospitalsMap1 extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener
 {
 	GoogleMap mGoogleMap;

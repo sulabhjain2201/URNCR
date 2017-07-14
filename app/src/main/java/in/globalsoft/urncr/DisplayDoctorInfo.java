@@ -170,17 +170,17 @@ public class DisplayDoctorInfo extends Activity
 						Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 						sharingIntent.setType("text/html");
 						if(item.getItemId() == R.id.doctor_share){
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_doctor));
 
 						}
 						else if(item.getItemId() == R.id.patient_share) {
 
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_patient));
 
 						}
 						else {
 
-							sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
+							sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_health_care));
 
 						}
 						startActivity(Intent.createChooser(sharingIntent,"Invite using"));

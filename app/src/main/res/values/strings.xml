@@ -67,5 +67,14 @@
     <string name="share_text_doctor">Join URNCR.com so you can help more patients.</string>
     <string name="share_text_patient">Join URNCR.com to get access to Doctor same day.</string>
     <string name="share_text_health_care">Join URNCR.com so you can help more patients.</string>
+    <string name="upload_doc">Upload Documents</string>
+    <string name="saved_doc">Saved Documents</string>
+    <string name="saved_document">Saved Documents</string>
+    <string name="hint_title">Title Please</string>
+    <string name="hint_desc">Descrition Please</string>
+    <string name="category_title">Select Catogery</string>
+    <string name="detail">Document Details</string>
+
+
 
 </resources>

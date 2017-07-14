@@ -268,7 +268,7 @@ public class AddDoctor extends Activity
 
                     try {
                         intent.putExtra(
-                                android.provider.MediaStore.EXTRA_OUTPUT,
+                                MediaStore.EXTRA_OUTPUT,
                                 mImageCaptureUri);
                         intent.putExtra("return-data", true);
 
@@ -303,7 +303,7 @@ public class AddDoctor extends Activity
             return;
 
         if (requestCode == REQUEST_PERMISSION_SETTING) {
-            if (ActivityCompat.checkSelfPermission(AddDoctor.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(AddDoctor.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 //Got Permission
                 create_dialog_for_upload_bill();
                 dialog_upload_bill.show();
