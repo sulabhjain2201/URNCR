@@ -18,14 +18,14 @@
             android:textStyle="bold"
             android:textColor="#dedede"
             android:text="CARRXON"/>
-        <Button
+        <ImageView
             android:id="@+id/logout_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/list_icon" />
+            android:src="@drawable/logout_btn" />
         </RelativeLayout>
    <RelativeLayout
         android:id="@+id/container_layout"

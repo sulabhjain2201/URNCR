@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -23,13 +24,14 @@ import in.globalsoft.preferences.AppPreferences;
 
 public class HomeScreenWithLogin extends Activity 
 {
-	private Button btn_logOut,btnChat;
+	private ImageView btn_logOut;
+	private Button btnChat,uploadADocument,saved_document;
 	private AppPreferences appPref;
 	private BeansLogin loginBeans;
 	private TextView tv_userName;
 	private Button btn_painMgmtSpecialities,btn_findPhysian,btn_findFacility,btn_search_doctor;
 	private Button btnSavingCards;
-	private Button btnInvite,uploadADocument,saved_document;
+	private ImageView btnInvite;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +40,7 @@ public class HomeScreenWithLogin extends Activity
 		setContentView(R.layout.activity_home_screen_with_login);
 		appPref = new AppPreferences(this);
 		
-		btn_logOut = (Button) findViewById(R.id.logout_btn);
+		btn_logOut = (ImageView) findViewById(R.id.logout_btn);
 		btn_painMgmtSpecialities = (Button) findViewById(R.id.painMgmtSpecBtn);
 		btn_findPhysian = (Button) findViewById(R.id.find_physician);
 		btn_findFacility= (Button) findViewById(R.id.find_facility);
@@ -46,7 +48,7 @@ public class HomeScreenWithLogin extends Activity
 		saved_document= (Button) findViewById(R.id.saved_document);
 		tv_userName = (TextView)findViewById(R.id.username_text);
 		btnChat=(Button) findViewById(R.id.btnChat);
-		btnInvite = (Button) findViewById(R.id.invite_btn);
+		btnInvite = (ImageView) findViewById(R.id.invite_btn);
 		setUserName();
 
 		uploadADocument.setOnClickListener(new OnClickListener() {

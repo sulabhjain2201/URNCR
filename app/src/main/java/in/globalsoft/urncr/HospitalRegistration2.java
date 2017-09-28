@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import in.globalsoft.beans.BeansAddDoctorResponse;
 import in.globalsoft.beans.BeansResponse;
@@ -131,37 +132,39 @@ public class HospitalRegistration2 extends Activity
 		protected Void doInBackground(Void... params)
 		{
 
-			Gson gson = new Gson();
-			String schdule = gson.toJson(AddClinicShedule.scheduleListBeans);
+			try {
+				Gson gson = new Gson();
+				String schdule = gson.toJson(AddClinicShedule.scheduleListBeans);
 
-			String url = Cons.url_add_admin_doctor_info+"doctor_name="+AddDoctor.str_doctorName
-					+"&doctor_phone="+Uri.encode(AddDoctor.str_doctorPhone)
-					+"&doctor_speciality="+AddDoctor.str_speciality
-					+"&doctor_address="+AddDoctor.str_doctorAddress
-					+"&doctor_email="+AddDoctor.str_doctorEmail
-					+"&username="+str_username
-					+"&password="+str_password;
+				String url = Cons.url_add_admin_doctor_info + "doctor_name=" + AddDoctor.str_doctorName
+						+ "&doctor_phone=" + Uri.encode(AddDoctor.str_doctorPhone)
+						+ "&doctor_speciality=" + AddDoctor.str_speciality
+						+ "&doctor_address=" + AddDoctor.str_doctorAddress
+						+ "&doctor_email=" + AddDoctor.str_doctorEmail
+						+ "&username=" + str_username
+						+ "&password=" + URLEncoder.encode(str_password, "utf-8");
 
-			System.out.println(url);
-			responseString = Cons.http_connection(url);
-			if(responseString !=null)
-				System.out.println(responseString);
-			registerBeans = gson.fromJson(responseString, BeansAddDoctorResponse.class);
+				System.out.println(url);
+				responseString = Cons.http_connection(url);
+				if (responseString != null)
+					System.out.println(responseString);
+				registerBeans = gson.fromJson(responseString, BeansAddDoctorResponse.class);
 
-			msg_res = "hospital_info";
-			if(registerBeans !=null && registerBeans.getCode()==200)
-			{
-				appPref.saveDoctorId(registerBeans.getDoctor_id());
+				msg_res = "hospital_info";
+				if (registerBeans != null && registerBeans.getCode() == 200) {
+					appPref.saveDoctorId(registerBeans.getDoctor_id());
 
-				msg_res = "hospital_image";
-				upload_image(registerBeans.getDoctor_id());
+					msg_res = "hospital_image";
+					upload_image(registerBeans.getDoctor_id());
 
+
+				}
 
 
 			}
-
-
-
+			catch (Exception e){
+				e.printStackTrace();
+			}
 
 
 			return null;

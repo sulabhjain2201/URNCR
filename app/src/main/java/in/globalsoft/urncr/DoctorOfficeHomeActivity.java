@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import in.globalsoft.urncr.R;
@@ -13,7 +14,7 @@ import in.globalsoft.preferences.AppPreferences;
 public class DoctorOfficeHomeActivity extends Activity
 {
 	TextView tvTextChat,tvBookAppointment;
-    Button btn_logOut;
+    ImageView btn_logOut;
     AppPreferences appPref ;
 
 	@Override
@@ -23,7 +24,7 @@ public class DoctorOfficeHomeActivity extends Activity
 		setContentView(R.layout.doctor_office_home_activity);
 		tvTextChat=(TextView) findViewById(R.id.tvTextChat);
 		tvBookAppointment=(TextView) findViewById(R.id.tvBookAppointment);
-        btn_logOut = (Button)findViewById(R.id.logout_btn);
+        btn_logOut = (ImageView) findViewById(R.id.logout_btn);
         appPref = new AppPreferences(this);
 
 		setClickListeners();

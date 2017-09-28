@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import in.globalsoft.adapter.SavedAdapter;
 import in.globalsoft.pojo.SavedDocRespo;
+import in.globalsoft.preferences.AppPreferences;
 import in.globalsoft.tasks.GetSavedDocTask;
 import in.globalsoft.util.Cons;
 import in.globalsoft.util.RuntimePermissionsManager;
@@ -40,7 +41,7 @@ public class SavedDocuments extends AppCompatActivity implements GetSavedDocTask
         linearLayoutManager.setStackFromEnd(true);
         savedList.setLayoutManager(linearLayoutManager);
         savedList.setHasFixedSize(true);
-        user_id="100";
+        user_id= new AppPreferences(this).getUserId();
         if (Cons.isNetworkAvailable(this)) {
             new GetSavedDocTask(this,Cons.saved_doc_url+user_id).execute();
         } else {

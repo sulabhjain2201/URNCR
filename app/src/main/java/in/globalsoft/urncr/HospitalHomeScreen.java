@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class HospitalHomeScreen extends Activity 
 {
 
-	Button btn_addDoctor,btn_updateSchedule,btn_doctorList,btn_logOut;
+	Button btn_addDoctor,btn_updateSchedule,btn_doctorList;
+	ImageView btn_logOut;
 	AppPreferences appPref;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -24,7 +26,7 @@ public class HospitalHomeScreen extends Activity
 		btn_addDoctor = (Button) findViewById(R.id.btn_adddoctor);
 		btn_updateSchedule = (Button) findViewById(R.id.btn_updateSchedule);
 		btn_doctorList = (Button) findViewById(R.id.btn_doctorList);
-		btn_logOut = (Button) findViewById(R.id.logout_btn);
+		btn_logOut = (ImageView) findViewById(R.id.logout_btn);
 		
 		btn_addDoctor.setOnClickListener(new OnClickListener()
 		{

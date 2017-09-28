@@ -45,8 +45,8 @@ public class DisplayDoctorInfo extends Activity
 	BeanSpecificHospitalDetails specificHospitalDetailBean;
 	Bitmap bitmap;
 	AppPreferences appPref;
-	Button btn_logout,btnChat;
-	private Button btnInvite;
+	Button btnChat;
+	private ImageView btnInvite,btn_logout;
 	
 
 	@Override
@@ -55,8 +55,8 @@ public class DisplayDoctorInfo extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_doctor_info);
 		appPref = new AppPreferences(this);
-		btn_logout = (Button) findViewById(R.id.logout_btn);
-		btnInvite = (Button) findViewById(R.id.invite_btn);
+		btn_logout = (ImageView) findViewById(R.id.logout_btn);
+		btnInvite = (ImageView) findViewById(R.id.invite_btn);
 		btn_updateSchdule = (Button)findViewById(R.id.update_schdule_btn);
 		Button btn_updateProfessionalInfo = (Button)findViewById(R.id.update_professionalInfo);
 		

@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.URLEncoder;
+
 public class RegisterScreen2 extends Activity 
 {
 	EditText et_username,et_password,et_verifyPassword;
@@ -106,21 +108,25 @@ public class RegisterScreen2 extends Activity
 			@Override
 			protected Void doInBackground(Void... params)
 			{
-				
-				String url = Cons.url_register+"first_name="+RegisterScreen1.str_firstname
-						+"&last_name="+RegisterScreen1.str_lastname
-						+"&address="+RegisterScreen1.str_address
-						+"&state="+RegisterScreen1.str_state
-						+"&city="+RegisterScreen1.str_cityname
-						+"&zip="+RegisterScreen1.str_zip
-						+"&home_phone="+RegisterScreen1.str_homephone
-						+"&work_phone="+RegisterScreen1.str_workcellphone
-						+"&email="+RegisterScreen1.str_email
-						+"&username="+str_username
-						+"&password="+str_password;
-				responseString = Cons.http_connection(url);
-				ParseInfo parseInfo = new ParseInfo();
-				registerBeans = parseInfo.parseRegister(responseString,RegisterScreen2.this,1);
+				try {
+					String url = Cons.url_register + "first_name=" + URLEncoder.encode(RegisterScreen1.str_firstname, "utf-8")
+							+ "&last_name=" + URLEncoder.encode(RegisterScreen1.str_lastname, "utf-8")
+							+ "&address=" +  URLEncoder.encode(RegisterScreen1.str_address, "utf-8")
+							+ "&state=" +  URLEncoder.encode(RegisterScreen1.str_state, "utf-8")
+							+ "&city=" +  URLEncoder.encode(RegisterScreen1.str_cityname, "utf-8")
+							+ "&zip=" +  URLEncoder.encode(RegisterScreen1.str_zip, "utf-8")
+							+ "&home_phone=" +  URLEncoder.encode(RegisterScreen1.str_homephone, "utf-8")
+							+ "&work_phone=" +  URLEncoder.encode(RegisterScreen1.str_workcellphone, "utf-8")
+							+ "&email=" + RegisterScreen1.str_email
+							+ "&username=" +  URLEncoder.encode(str_username, "utf-8")
+							+ "&password=" +  URLEncoder.encode(str_password, "utf-8");
+					responseString = Cons.http_connection(url);
+					ParseInfo parseInfo = new ParseInfo();
+					registerBeans = parseInfo.parseRegister(responseString, RegisterScreen2.this, 1);
+				}
+				catch (Exception e){
+					e.printStackTrace();
+				}
 				
 						return null;
 			}
