@@ -7,6 +7,7 @@ import in.globalsoft.urncr.R;
 import in.globalsoft.preferences.AppPreferences;
 import in.globalsoft.util.Cons;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -309,6 +310,8 @@ public class AddProfessionalInfo extends Activity
 		{
 			ProgressDialog pd;
 			Context con;
+			private String educationInfo;
+			private String servicesInfo;
 
 			public UpdateProfesionalInfoTask(Context con)
 			{
@@ -318,39 +321,44 @@ public class AddProfessionalInfo extends Activity
 			@Override
 			protected void onPreExecute() 
 			{
+				EditText etEducation = (EditText) findViewById(R.id.etEducation);
+				EditText etServices = (EditText) findViewById(R.id.etServices);
+				educationInfo = etEducation.getText().toString();
+				servicesInfo = etServices.getText().toString();
 				pd = ProgressDialog.show(con, null, "Loading...");
 				super.onPreExecute();
 			}
 			@Override
 			protected Void doInBackground(Void... params)
 			{
-				AppPreferences appPref = new AppPreferences(AddProfessionalInfo.this);
-				BeansLanguagesKnown languagesKnown = new BeansLanguagesKnown();
-				languagesKnown.setLanguage(langList);
-				Gson gson = new Gson();
-				String jsonlang = gson.toJson(languagesKnown);
-				BeanDocInsuranceInfo docInsuranceInfo = new BeanDocInsuranceInfo();
-				docInsuranceInfo.setInsurance_info(insuranceList);
-				
-				String jsonInsurance = gson.toJson(docInsuranceInfo);
-				 EditText etEducation = (EditText) findViewById(R.id.etEducation);
-				 EditText etServices = (EditText) findViewById(R.id.etServices);
-				String url = "";
-				url = Cons.url_add_docor_education+"doctor_id="+appPref.getDoctorId()+"&experience="+experience+"&fees="+strFees
-						+"&language="+jsonlang+"&insurance_info="+jsonInsurance+"&education="+etEducation.getText().toString()+"&services="+etServices.getText().toString();
-						
-				;
-				System.out.println("url::"+url);
-				String responseString = Cons.http_connection(url);	
-				if(responseString !=null)
-					System.out.println(responseString);
-				
-				responseBeans=gson.fromJson(responseString, BeansResponse.class);
+				try {
+					AppPreferences appPref = new AppPreferences(AddProfessionalInfo.this);
+					BeansLanguagesKnown languagesKnown = new BeansLanguagesKnown();
+					languagesKnown.setLanguage(langList);
+					Gson gson = new Gson();
+					String jsonlang = gson.toJson(languagesKnown);
+					BeanDocInsuranceInfo docInsuranceInfo = new BeanDocInsuranceInfo();
+					docInsuranceInfo.setInsurance_info(insuranceList);
+
+					String jsonInsurance = gson.toJson(docInsuranceInfo);
+
+					String url = "";
+					url = Cons.url_add_docor_education + "doctor_id=" + appPref.getDoctorId() + "&experience=" + experience + "&fees=" + strFees
+							+ "&language=" + jsonlang + "&insurance_info=" + jsonInsurance + "&education=" + URLEncoder.encode(educationInfo, "utf-8") + "&services=" + URLEncoder.encode(servicesInfo, "utf-8");
+
+					;
+					System.out.println("url::" + url);
+					String responseString = Cons.http_connection(url);
+					if (responseString != null)
+						System.out.println(responseString);
+
+					responseBeans = gson.fromJson(responseString, BeansResponse.class);
 
 
-
-
-
+				}
+				catch (Exception e){
+					e.printStackTrace();
+				}
 
 				return null;
 			}

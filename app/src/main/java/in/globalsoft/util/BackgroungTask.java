@@ -5,6 +5,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Message;
 
+import com.google.gson.Gson;
+
+import in.globalsoft.beans.BeansDoctorsByHospitalList;
+import in.globalsoft.beans.BeansListSpecialities;
+import in.globalsoft.preferences.AppPreferences;
+
 public class BackgroungTask extends AsyncTask<Void, Void, Void>
 {
 	ProgressDialog pd;
@@ -24,9 +30,35 @@ public class BackgroungTask extends AsyncTask<Void, Void, Void>
 	@Override
 	protected Void doInBackground(Void... params)
 	{
+
+
 		try
 		{
-			Thread.sleep(3000);
+			String url = Cons.URL_SPECIALITIES;
+			System.out.println(url);
+			String responseString = Cons.http_connection(url);
+			if(responseString != null) {
+				try {
+					BeansListSpecialities beansListSpecialities = new Gson().fromJson(responseString, BeansListSpecialities.class);
+					if(beansListSpecialities.getCode().equals("200")){
+						new AppPreferences(con).saveListSpecialities(responseString);
+					}
+
+				}
+				catch (final Exception e){
+					e.printStackTrace();
+					String specialitiesData = Utility.readFromAsset("specialities.json",con);
+					new AppPreferences(con).saveListSpecialities(specialitiesData);
+
+				}
+			}
+			else {
+				String specialitiesData = Utility.readFromAsset("specialities.json",con);
+				new AppPreferences(con).saveListSpecialities(specialitiesData);
+			}
+
+			Thread.sleep(2000);
+
 		}
 		catch(Exception ae)
 		{

@@ -9,16 +9,24 @@ public class AppPreferences
 {
 	
 	private static final String APP_SHARED_PREFS = "in.globalsoft.carxon.userInfo"; //  Name of the file -.xml
-	 private SharedPreferences appSharedPrefs;
-	 private Editor prefsEditor;
+	private static final String APP_SHARED_PREFS_PERMANENT = "in.globalsoft.urncr";
+	private SharedPreferences appSharedPrefs,appSharePrefPer;
+	 private Editor prefsEditor,prefEditorPerm;
 	 private Context context;
 
 	 public AppPreferences(Context context)
 	 {
 	  this.appSharedPrefs = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
 	  this.prefsEditor = appSharedPrefs.edit();
+
+		 this.appSharePrefPer = context.getSharedPreferences(APP_SHARED_PREFS_PERMANENT, Activity.MODE_PRIVATE);
+		 this.prefEditorPerm = appSharePrefPer.edit();
+
+
 	  this.context=context;
 	 }
+
+
 
 	
 	 
@@ -330,8 +338,20 @@ public class AppPreferences
 
     }
 
-	 
-	 
-	
+	public String getListSpecialities()
+	{
+		return appSharePrefPer.getString("specialities", "");
+	}
+
+	public void saveListSpecialities(String text)
+	{
+		prefEditorPerm.putString("specialities", text);
+		prefEditorPerm.commit();
+
+	}
+
+
+
+
 
 }

@@ -70,6 +70,7 @@ public class Cons
 	public static  String url_add_admin_doctor_info = "http://urncr.com/CarrxonWebServices/ws/add_admin_doctor.php?";
 	public static final String URL_COPAY_SAVING_CARDS = "http://urncr.com/CarrxonWebServices/ws/saving_cards.php?";
 	public static  final int ADD_DOCTOR = 0;
+	public static final String URL_SPECIALITIES = "http://urncr.com/CarrxonWebServices/ws/specialities.php";
 	public static  final int UPDATE_DOCTOR = 1;
 	public static String saved_doc_url="http://urncr.com/CarrxonWebServices/ws/patient_docs.php?user_id=";
 	public static String download_url="http://urncr.com/CarrxonWebServices/ws/";

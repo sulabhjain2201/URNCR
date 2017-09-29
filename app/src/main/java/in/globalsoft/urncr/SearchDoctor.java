@@ -1,15 +1,5 @@
 package in.globalsoft.urncr;
 
-import in.globalsoft.beans.BeansHospitalInfo;
-import in.globalsoft.beans.BeansHospitalList;
-import in.globalsoft.urncr.R;
-import in.globalsoft.util.Cons;
-import in.globalsoft.util.ParseInfo;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -28,6 +18,19 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.globalsoft.beans.BeanSpecaility;
+import in.globalsoft.beans.BeansHospitalInfo;
+import in.globalsoft.beans.BeansHospitalList;
+import in.globalsoft.beans.BeansListSpecialities;
+import in.globalsoft.preferences.AppPreferences;
+import in.globalsoft.util.Cons;
+import in.globalsoft.util.ParseInfo;
 
 public class SearchDoctor extends Activity{
 	
@@ -124,12 +127,15 @@ public class SearchDoctor extends Activity{
 		
 		
 	}
-	
-	public void dialogSpeciality() 
+
+	public void dialogSpeciality()
 	{
-		final String doctors_array[]= {"Urgent Care Centers","Acupuncturists", "Allergists", "Audiologists", "Cardiologists", "Chiropractors", "Colorectal Surgeons", "Dentists", "Dermatologists", "Dietitians", "Ear, Nose & Throat Doctors", "Emergency Medicine Physicians", "Endocrinologists", "Endodontists", "Eye Doctors", "Family Physicians", "Gastroenterologists", "Hand Surgeons", "Hearing Specialists", "Hematologists", "Infectious Disease Specialists", "Infertility Specialists", "Internists", "Naturopathic Doctors", "Nephrologists", "Neurologists", "Neurosurgeons", "Nurse Practitioners", "Nutritionists", "OB-GYNs", "Oncologists", "Ophthalmologists", "Optometrists", "Oral Surgeons", "Orthodontists", "Orthopedic Surgeons", "Pain Management Specialists", "Pediatric Dentists", "Pediatricians", "Periodontists", "Physiatrists", "Physical Therapists", "Plastic Surgeons", "Podiatrists", "Doctors", "Prosthodontists", "Psychiatrists", "Psychologists", "Psychotherapists", "Pulmonologists", "Radiologists", "Rheumatologists", "Sleep Medicine Specialists", "Sports Medicine Specialists", "Surgeons", "Therapists / Counselors", "Travel Medicine Specialists", "Urologists","Primary Care Doctors"};
-		final ArrayList<String> listSpeciality = new ArrayList<String>(Arrays.asList(doctors_array));;
-//		listSpeciality.add("Physician");
+		BeansListSpecialities beansListSpecialities = new Gson().fromJson(new AppPreferences(SearchDoctor.this).getListSpecialities(), BeansListSpecialities.class);
+		final List<BeanSpecaility> specialities = beansListSpecialities.getSpecialities();
+		final List<String> listSpeciality = new ArrayList<String>();
+		for(BeanSpecaility specaility : specialities){
+			listSpeciality.add(specaility.getName());
+		}
 
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -144,7 +150,7 @@ public class SearchDoctor extends Activity{
 
 
 					dialog.cancel();
-				} 
+				}
 				else if (item == 1) {
 
 
@@ -165,15 +171,24 @@ public class SearchDoctor extends Activity{
 				}
 
 				tv_speciality.setText(listSpeciality.get(item));
-				str_speciality = String.valueOf(item+1);
+				str_speciality = String.valueOf(specialities.get(item).getId());
+				str_speciality = String.valueOf(specialities.get(item).getId());
+/*				if(Cons.isNetworkAvailable(AddDoctor.this))
+				{
+					new GetDoctorAddressesTask(AddDoctor.this).execute();
+				}
+				else
+					Cons.showDialog(AddDoctor.this, "Carrxon", "Internet connection is not available.", "OK");
+*/
 			}
-				
 		});
 
 		dialog_speciality = builder.create();
 	}
-		
-		private class SearchDoctorTask extends AsyncTask<Void, Void, Void> {
+
+
+
+	private class SearchDoctorTask extends AsyncTask<Void, Void, Void> {
 
 			
 			ProgressDialog pd;

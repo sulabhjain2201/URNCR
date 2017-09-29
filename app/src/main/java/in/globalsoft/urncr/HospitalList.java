@@ -210,10 +210,11 @@ public class HospitalList extends Activity
 							listHospital.setAdapter(new AdapterSearchDoctorsList(HospitalList.this, hospitalListBeans.getHospital_list()));
 						}
 					}
+
 					else
 					{
 
-						Toast.makeText(HospitalList.this, "Api not working or connection is slow.Please try after some time.", Toast.LENGTH_LONG).show();
+						Toast.makeText(HospitalList.this, hospitalListBeans.getMessage(), Toast.LENGTH_LONG).show();
 					}
 
 

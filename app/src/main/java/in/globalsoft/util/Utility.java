@@ -1,10 +1,15 @@
 package in.globalsoft.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -47,5 +52,36 @@ public class Utility {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(milliSeconds);
 		return formatter.format(calendar.getTime());
+	}
+
+
+	public static String readFromAsset(String fileName, Context context) {
+		BufferedReader br = null;
+		String fileText = "";
+		try {
+			String str = "";
+			StringBuffer buffer = new StringBuffer();
+			AssetManager assetManager = context.getAssets();
+			InputStream stream = assetManager.open(fileName);
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					stream));
+			if (stream != null) {
+				while ((str = reader.readLine()) != null) {
+					buffer.append(str);
+				}
+			}
+			fileText = buffer.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return fileText;
 	}
 }

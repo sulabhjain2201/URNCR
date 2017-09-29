@@ -122,24 +122,25 @@ public class ParseInfo
 			int code = Integer.parseInt(obj.getString("code"));
 			hospitalListBeans.setCode(code);
 			hospitalListBeans.setMessage(obj.getString("message"));
-			JSONArray array = obj.getJSONArray("hospital_list");
-			for(int i =0;i<array.length();i++)
-			{
-				BeansHospitalInfo hospitalInfoBeans = new BeansHospitalInfo();
-				JSONObject obj_info = array.getJSONObject(i);
-				hospitalInfoBeans.setDoctor_id(obj_info.getString("doctor_id"));
+			if(code == 200) {
+				JSONArray array = obj.getJSONArray("hospital_list");
+				for (int i = 0; i < array.length(); i++) {
+					BeansHospitalInfo hospitalInfoBeans = new BeansHospitalInfo();
+					JSONObject obj_info = array.getJSONObject(i);
+					hospitalInfoBeans.setDoctor_id(obj_info.getString("doctor_id"));
 
-				hospitalInfoBeans.setLat(obj_info.optString("lat"));
-				hospitalInfoBeans.setLon(obj_info.optString("lon"));
-				hospitalInfoBeans.setName(obj_info.getString("name"));
-				hospitalInfoBeans.setNext_appointment_time(obj_info.getString("next_appointment_time"));
-				hospitalInfoBeans.setOpen_status(obj_info.getString("open_status"));
-				hospitalInfoBeans.setVicinity(obj_info.getString("vicinity"));
-				hospitalInfoBeans.setWating_time(obj_info.getString("waiting_time"));
-				hospitalInfoBeans.setPhone(obj_info.getString("phone"));
-				list_HospitalInfo.add(hospitalInfoBeans);
+					hospitalInfoBeans.setLat(obj_info.optString("lat"));
+					hospitalInfoBeans.setLon(obj_info.optString("lon"));
+					hospitalInfoBeans.setName(obj_info.getString("name"));
+					hospitalInfoBeans.setNext_appointment_time(obj_info.getString("next_appointment_time"));
+					hospitalInfoBeans.setOpen_status(obj_info.getString("open_status"));
+					hospitalInfoBeans.setVicinity(obj_info.getString("vicinity"));
+					hospitalInfoBeans.setWating_time(obj_info.getString("waiting_time"));
+					hospitalInfoBeans.setPhone(obj_info.getString("phone"));
+					list_HospitalInfo.add(hospitalInfoBeans);
+				}
+				hospitalListBeans.setHospital_list(list_HospitalInfo);
 			}
-			hospitalListBeans.setHospital_list(list_HospitalInfo);
 		}
 		catch(Exception e)
 		{

@@ -1,12 +1,10 @@
 package in.globalsoft.urncr;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -32,15 +29,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
+import in.globalsoft.beans.BeanSpecaility;
 import in.globalsoft.beans.BeansAddDoctorResponse;
-import in.globalsoft.urncr.R;
+import in.globalsoft.beans.BeansListSpecialities;
 import in.globalsoft.preferences.AppPreferences;
 import in.globalsoft.util.Cons;
 
@@ -395,9 +393,12 @@ public class AddDoctor extends Activity
 
     public void dialogSpeciality()
     {
-        final String doctors_array[]= {"Urgent Care Centers","Acupuncturists", "Allergists", "Audiologists", "Cardiologists", "Chiropractors", "Colorectal Surgeons", "Dentists", "Dermatologists", "Dietitians", "Ear, Nose & Throat Doctors", "Emergency Medicine Physicians", "Endocrinologists", "Endodontists", "Eye Doctors", "Family Physicians", "Gastroenterologists", "Hand Surgeons", "Hearing Specialists", "Hematologists", "Infectious Disease Specialists", "Infertility Specialists", "Internists", "Naturopathic Doctors", "Nephrologists", "Neurologists", "Neurosurgeons", "Nurse Practitioners", "Nutritionists", "OB-GYNs", "Oncologists", "Ophthalmologists", "Optometrists", "Oral Surgeons", "Orthodontists", "Orthopedic Surgeons", "Pain Management Specialists", "Pediatric Dentists", "Pediatricians", "Periodontists", "Physiatrists", "Physical Therapists", "Plastic Surgeons", "Podiatrists", "Doctors", "Prosthodontists", "Psychiatrists", "Psychologists", "Psychotherapists", "Pulmonologists", "Radiologists", "Rheumatologists", "Sleep Medicine Specialists", "Sports Medicine Specialists", "Surgeons", "Therapists / Counselors", "Travel Medicine Specialists", "Urologists","Primary Care Doctors","Primary Care Centers","Suboxone doctors"};
-        final ArrayList<String> listSpeciality = new ArrayList<String>(Arrays.asList(doctors_array));;
-//		listSpeciality.add("Physician");
+        BeansListSpecialities beansListSpecialities = new Gson().fromJson(new AppPreferences(AddDoctor.this).getListSpecialities(), BeansListSpecialities.class);
+        final List<BeanSpecaility> specialities = beansListSpecialities.getSpecialities();
+        final List<String> listSpeciality = new ArrayList<String>();
+        for(BeanSpecaility specaility : specialities){
+            listSpeciality.add(specaility.getName());
+        }
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -433,7 +434,8 @@ public class AddDoctor extends Activity
                 }
 
                 tv_speciality.setText(listSpeciality.get(item));
-                str_speciality = String.valueOf(item+1);
+                str_speciality = String.valueOf(specialities.get(item).getId());
+                str_speciality = String.valueOf(specialities.get(item).getId());
 /*				if(Cons.isNetworkAvailable(AddDoctor.this))
 				{
 					new GetDoctorAddressesTask(AddDoctor.this).execute();
