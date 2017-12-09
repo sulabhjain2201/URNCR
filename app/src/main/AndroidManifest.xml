@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.globalsoft.urncr"
-    android:versionCode="11"
-    android:versionName="1.11">
+    android:versionCode="15"
+    android:versionName="1.15">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -15,7 +15,7 @@
     <uses-permission android:name="in.globalsoft.urncr.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -41,8 +41,7 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -68,21 +67,18 @@
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".SavedDocuments"
+        <activity
+            android:name=".SavedDocuments"
             android:label="@string/saved_document"
-            android:screenOrientation="portrait"
-            ></activity>
-        <activity android:name=".UploadDocument"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UploadDocument"
             android:label="@string/saved_document"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name=".PatientDocsDetailScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PatientDocsDetailScreen"
             android:label="@string/saved_document"
-            android:screenOrientation="portrait"
-            ></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Home_Physician"
             android:label="@string/title_activity_home__physician"
@@ -116,8 +112,8 @@
         <activity
             android:name=".HospitalList"
             android:label="@string/title_activity_hospital_list"
-            android:theme="@style/DoctorListTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/DoctorListTheme" />
         <activity
             android:name=".ListDoctors"
             android:screenOrientation="portrait" />
@@ -293,7 +289,8 @@
             android:name=".RecentOfficePatientsForAppointment"
             android:label="@string/title_activity_recent_office_patients_for_appointment" />
         <activity android:name=".ListCopaySavingCardsActivity" />
-        <activity android:name=".CopaySavingDetailActivity"></activity>
+        <activity android:name=".CopaySavingDetailActivity" />
+        <activity android:name=".SearchedHospitalList"></activity>
     </application>
 
 </manifest>

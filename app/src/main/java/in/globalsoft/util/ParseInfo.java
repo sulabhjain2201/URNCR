@@ -137,6 +137,7 @@ public class ParseInfo
 					hospitalInfoBeans.setVicinity(obj_info.getString("vicinity"));
 					hospitalInfoBeans.setWating_time(obj_info.getString("waiting_time"));
 					hospitalInfoBeans.setPhone(obj_info.getString("phone"));
+					hospitalInfoBeans.setSpeciality_id(obj_info.getString("speciality_id"));
 					list_HospitalInfo.add(hospitalInfoBeans);
 				}
 				hospitalListBeans.setHospital_list(list_HospitalInfo);

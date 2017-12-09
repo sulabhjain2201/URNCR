@@ -74,7 +74,10 @@
     <string name="hint_desc">Descrition Please</string>
     <string name="category_title">Select Catogery</string>
     <string name="detail">Document Details</string>
-
+    <string name="fetching_countries">Fetching Countries</string>
+    <string name="fetching_states">Fetching States</string>
+    <string name="fetching_cities">Fetching Cities</string>
+    <string name="defaultProgressMsg">Loading...</string>
 
 
 </resources>

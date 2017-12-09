@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class FacilityList extends Activity 
 {
@@ -40,10 +41,12 @@ public class FacilityList extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) 
 			{
-				Intent i = new Intent(FacilityList.this,HospitalList.class);
-				appPref.saveMapType(listFacility.get(arg2));
-				i.putExtra("speciality_id",arg2+1);
-				startActivity(i);
+//				Intent i = new Intent(FacilityList.this,HospitalList.class);
+//				appPref.saveMapType(listFacility.get(arg2));
+//				i.putExtra("speciality_id",arg2+1);
+//				startActivity(i);
+
+				Toast.makeText(FacilityList.this,"No Record Found",Toast.LENGTH_SHORT).show();
 				
 			}
 			

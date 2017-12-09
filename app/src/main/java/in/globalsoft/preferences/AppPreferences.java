@@ -351,6 +351,21 @@ public class AppPreferences
 	}
 
 
+	public String getCountryList()
+	{
+		return appSharePrefPer.getString("countries", "");
+	}
+
+	public void saveCountriesList(String text)
+	{
+		prefEditorPerm.putString("countries", text);
+		prefEditorPerm.commit();
+
+	}
+
+
+
+
 
 
 

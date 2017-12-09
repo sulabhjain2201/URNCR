@@ -28,23 +28,28 @@ import in.globalsoft.beans.BeanSpecaility;
 import in.globalsoft.beans.BeansHospitalInfo;
 import in.globalsoft.beans.BeansHospitalList;
 import in.globalsoft.beans.BeansListSpecialities;
+import in.globalsoft.pojo.CountriesPojo;
+import in.globalsoft.pojo.RegionPojo;
 import in.globalsoft.preferences.AppPreferences;
 import in.globalsoft.util.Cons;
 import in.globalsoft.util.ParseInfo;
 
 public class SearchDoctor extends Activity{
 	
-	private TextView tv_speciality;
+	private TextView tv_speciality,tv_country,tvState,tvCity;
 	private RelativeLayout layout_speciality ,rlCountry , rlState , rlCity;
-	private EditText et_name, et_city;
+	private EditText et_name, et_city,etZipCode;
 
 	private Button search_doctor;
 
-	private String str_speciality;
+	private String strSpecilaity="";
 	
 	String url , data;
 	private AlertDialog dialog_speciality;
 	public static BeansHospitalList hospitalListBeans;
+	private AppPreferences appPreferences;
+
+	private RegionPojo selectedCountry,selectedState,selectedCity;
 	
 	
 	
@@ -55,24 +60,178 @@ public class SearchDoctor extends Activity{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_search_doctor);
+
+		appPreferences = new AppPreferences(this);
 		
 		tv_speciality = (TextView) findViewById(R.id.doctor_speciality_text);
 		layout_speciality = (RelativeLayout) findViewById(R.id.doctor_speciality_layout);
 
 		rlCountry = (RelativeLayout) findViewById(R.id.country_layout);
+		tv_country = (TextView) findViewById(R.id.country_layout_text);
+
+
 		rlState = (RelativeLayout) findViewById(R.id.state_layout);
+		tvState = (TextView) findViewById(R.id.state_layout_text);
+
 		rlCity = (RelativeLayout) findViewById(R.id.city_layout);
+		tvCity = (TextView) findViewById(R.id.city_layout_text);
 
 		et_name=(EditText)findViewById(R.id.et_search_name);
-		//et_city=(EditText)findViewById(R.id.et_search_city);
+		etZipCode=(EditText)findViewById(R.id.et_search_zip);
 
 		rlCountry.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
+				new AsyncTask<Void,Void,CountriesPojo>(){
+					ProgressDialog pd = null;
+
+					@Override
+					protected void onPreExecute() {
+
+						 pd = ProgressDialog.show(SearchDoctor.this,getString(R.string.app_name),getString(R.string.fetching_countries),false);
+						super.onPreExecute();
+					}
+
+					@Override
+					protected CountriesPojo doInBackground(Void... voids) {
+
+						String countryData = Cons.readFileFromRawDirectory(SearchDoctor.this,R.raw.countries);
+						if(countryData != null){
+							return new Gson().fromJson(countryData,CountriesPojo.class);
+						}
+						return null;
+					}
+
+					@Override
+					protected void onPostExecute(CountriesPojo countries) {
+
+						if(pd != null && pd.isShowing()){
+							pd.dismiss();
+						}
+                        dialogCountries(countries.getRegion_list());
+
+
+
+
+						//create dialog with countries
+
+						super.onPostExecute(countries);
+					}
+				}.execute();
 			}
 		});
-		
+
+		rlState.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				if(selectedCountry == null || selectedCountry.getLocation_id().equals("-1")){
+
+				}
+				else{
+
+					new AsyncTask<Void,Void,CountriesPojo>(){
+						ProgressDialog pd = null;
+
+						@Override
+						protected void onPreExecute() {
+
+							pd = ProgressDialog.show(SearchDoctor.this,getString(R.string.app_name),getString(R.string.fetching_states),false);
+							super.onPreExecute();
+						}
+
+						@Override
+						protected CountriesPojo doInBackground(Void... voids) {
+
+
+
+							String stateData = Cons.http_connection(Cons.URL_STATES+"?country_id="+selectedCountry.getLocation_id());
+							if(stateData != null){
+								return new Gson().fromJson(stateData,CountriesPojo.class);
+							}
+							return null;
+						}
+
+						@Override
+						protected void onPostExecute(CountriesPojo states) {
+
+							if(pd != null && pd.isShowing()){
+								pd.dismiss();
+							}
+							dialogStates(states.getRegion_list());
+
+
+
+
+							//create dialog with countries
+
+							super.onPostExecute(states);
+						}
+					}.execute();
+
+				}
+
+
+			}
+		});
+
+		rlCity.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				if(selectedState == null){
+
+				}
+				else{
+
+					new AsyncTask<Void,Void,CountriesPojo>(){
+						ProgressDialog pd = null;
+
+						@Override
+						protected void onPreExecute() {
+
+							pd = ProgressDialog.show(SearchDoctor.this,getString(R.string.app_name),getString(R.string.fetching_cities),false);
+							super.onPreExecute();
+						}
+
+						@Override
+						protected CountriesPojo doInBackground(Void... voids) {
+
+
+
+							String cityData = Cons.http_connection(Cons.URL_CITIES+"?state_id="+selectedState.getLocation_id());
+							if(cityData != null){
+								return new Gson().fromJson(cityData,CountriesPojo.class);
+							}
+							return null;
+						}
+
+						@Override
+						protected void onPostExecute(CountriesPojo cities) {
+
+							if(pd != null && pd.isShowing()){
+								pd.dismiss();
+							}
+							dialogCities(cities.getRegion_list());
+
+
+
+
+							//create dialog with countries
+
+							super.onPostExecute(cities);
+						}
+					}.execute();
+
+				}
+
+
+			}
+		});
+
+
+
 		search_doctor= (Button)findViewById(R.id.search_doctor_btn);
 		
 		
@@ -81,30 +240,7 @@ public class SearchDoctor extends Activity{
 			@Override
 			public void onClick(View v) {
 				
-				if(!et_name.getText().toString().equals("") && !et_city.getText().toString().equals("")&& !tv_speciality.getText().toString().equals("Specialty"))
-				{
-					url= Cons.url_search_doctor+ et_name.getText().toString()+" " + 
-				tv_speciality.getText().toString() + " in " + et_city.getText().toString();
-				}
-				else if(!et_name.getText().toString().equals("") && !et_city.getText().toString().equals(""))
-				{
-					url= Cons.url_search_doctor+ et_name.getText().toString()+
-							" in " + et_city.getText().toString();
-				}
-				else if(!et_name.getText().toString().equals("") && !tv_speciality.getText().toString().equals("Specialty") )
-				{
-					url= Cons.url_search_doctor+ et_name.getText().toString()+" " 
-							 + tv_speciality.getText().toString();
-				}
-				else if(!et_city.getText().toString().equals("")&& !tv_speciality.getText().toString().equals("Specialty"))
-				{
-					url= Cons.url_search_doctor+ tv_speciality.getText().toString() + " in "
-							+ et_city.getText().toString();
-				}
-				else
-					Toast.makeText(SearchDoctor.this, "Atleast two fields are required to search a doctor.", Toast.LENGTH_LONG).show();
-				if(url != null)
-				new SearchDoctorTask().execute();
+								new SearchDoctorTask().execute();
 				
 				
 			}
@@ -124,8 +260,135 @@ public class SearchDoctor extends Activity{
 
 			}
 		});
+
+
+
+
 		
 		
+	}
+
+	private void dialogCities(final List<RegionPojo> region_list) {
+
+		final List<String> listCities = new ArrayList<String>();
+		for(RegionPojo region : region_list){
+			listCities.add(region.getName());
+		}
+
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.select_dialog_item, listCities);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle("Countries");
+		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+
+
+				tvCity.setText(listCities.get(item));
+
+				selectedCity = region_list.get(item);
+
+
+
+
+/*				if(Cons.isNetworkAvailable(AddDoctor.this))
+				{
+					new GetDoctorAddressesTask(AddDoctor.this).execute();
+				}
+				else
+					Cons.showDialog(AddDoctor.this, "Carrxon", "Internet connection is not available.", "OK");
+*/
+			}
+		});
+
+		AlertDialog dialogCities = builder.create();
+		dialogCities.show();
+	}
+
+	private void dialogStates(final List<RegionPojo> region_list) {
+
+		final List<String> listStates = new ArrayList<String>();
+		for(RegionPojo region : region_list){
+			listStates.add(region.getName());
+		}
+
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.select_dialog_item, listStates);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle("Countries");
+		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+
+
+				tvState.setText(listStates.get(item));
+
+				selectedState = region_list.get(item);
+
+
+				selectedCity = null;
+
+				tvCity.setText("Search By City");
+
+/*				if(Cons.isNetworkAvailable(AddDoctor.this))
+				{
+					new GetDoctorAddressesTask(AddDoctor.this).execute();
+				}
+				else
+					Cons.showDialog(AddDoctor.this, "Carrxon", "Internet connection is not available.", "OK");
+*/
+			}
+		});
+
+		AlertDialog dialogStates = builder.create();
+		dialogStates.show();
+	}
+
+
+	public void dialogCountries(final List<RegionPojo> region_list)
+    {
+
+        final List<String> listCountries = new ArrayList<String>();
+        for(RegionPojo region : region_list){
+			listCountries.add(region.getName());
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.select_dialog_item, listCountries);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Countries");
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+
+				tv_country.setText(listCountries.get(item));
+
+				selectedCountry = region_list.get(item);
+
+				selectedState = null;
+
+				tvState.setText("Search By State");
+
+				selectedCity = null;
+
+				tvCity.setText("Search By City");
+
+/*				if(Cons.isNetworkAvailable(AddDoctor.this))
+				{
+					new GetDoctorAddressesTask(AddDoctor.this).execute();
+				}
+				else
+					Cons.showDialog(AddDoctor.this, "Carrxon", "Internet connection is not available.", "OK");
+*/
+            }
+        });
+
+		AlertDialog dialogCountries = builder.create();
+		dialogCountries.show();
 	}
 
 	public void dialogSpeciality()
@@ -171,8 +434,8 @@ public class SearchDoctor extends Activity{
 				}
 
 				tv_speciality.setText(listSpeciality.get(item));
-				str_speciality = String.valueOf(specialities.get(item).getId());
-				str_speciality = String.valueOf(specialities.get(item).getId());
+				strSpecilaity = String.valueOf(specialities.get(item).getId());
+
 /*				if(Cons.isNetworkAvailable(AddDoctor.this))
 				{
 					new GetDoctorAddressesTask(AddDoctor.this).execute();
@@ -192,10 +455,13 @@ public class SearchDoctor extends Activity{
 
 			
 			ProgressDialog pd;
-
+			private String doctorName;
+			private String strZipCode;
 			@Override
 			protected void onPreExecute() 
 			{
+				doctorName = et_name.getText().toString();
+				strZipCode = etZipCode.getText().toString();
 				pd = ProgressDialog.show(SearchDoctor.this, null, "Loading...");
 				pd.show();
 				// TODO Auto-generated method stub
@@ -207,6 +473,34 @@ public class SearchDoctor extends Activity{
 			{
 				try 
 				{
+					String url = Cons.URL_SEARCH_DOCTORS;
+					HospitalsMap1.hospitalListBeans = null;
+					hospitalListBeans= null;
+
+					if(selectedCountry != null && !String.valueOf(selectedCountry.getLocation_id()).equals("-1")) {
+						url = url + "country=" + selectedCountry.getName().trim();
+					}
+					else{
+						url = url + "country=";
+					}
+
+					if(selectedState != null) {
+						url = url + "&state=" + selectedState.getName().trim();
+					}
+					else{
+						url = url + "&state=";
+					}
+
+					if(selectedCity != null) {
+						url = url + "&city=" + selectedCity.getName().trim();
+					}
+					else{
+						url = url + "&city=";
+					}
+
+						url = url + "&doctor_name=" + doctorName.trim()+"&speciality_id="+strSpecilaity+"&zip_code="+strZipCode;
+
+
 					data = Cons.http_connection(url);
 					
 					if(data!=null)
@@ -254,12 +548,12 @@ public class SearchDoctor extends Activity{
 						if (!isFinishing()) 
 						{
 
-							if((hospitalListBeans == null)||Cons.isNetAvail==1 || data == null)
+							if((hospitalListBeans == null)|| data == null)
 
 							{
 
 								Cons.isNetAvail = 0;
-								Toast.makeText(SearchDoctor.this, "Connection is slow or some error in apis.", Toast.LENGTH_LONG).show();
+								Toast.makeText(SearchDoctor.this, "No Result Found.", Toast.LENGTH_LONG).show();
 							
 							}
 
@@ -300,5 +594,9 @@ public class SearchDoctor extends Activity{
 
 				}
 			};
+
+
+
+
 
 }

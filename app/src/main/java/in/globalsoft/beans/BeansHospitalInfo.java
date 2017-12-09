@@ -7,6 +7,7 @@ public class BeansHospitalInfo
 	String name;
 	String vicinity;
 	String doctor_id;
+	private String speciality_id;
 	public String getDoctor_id() {
 		return doctor_id;
 	}
@@ -67,4 +68,11 @@ public class BeansHospitalInfo
 		this.next_appointment_time = next_appointment_time;
 	}
 
+	public String getSpeciality_id() {
+		return speciality_id;
+	}
+
+	public void setSpeciality_id(String speciality_id) {
+		this.speciality_id = speciality_id;
+	}
 }

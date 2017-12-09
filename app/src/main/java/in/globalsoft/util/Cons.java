@@ -12,6 +12,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -66,11 +69,15 @@ public class Cons
     public static String url_getOfficeBydoctorId="http://www.urncr.com/CarrxonWebServices/ws/getDoctocByOfficeId.php?doctor_id=";
 	public static String url_special_doctors_by_speciality="http://urncr.com/CarrxonWebServices/ws/list_special_doctors.php?speciality_id=";
     public static String URL_SEARCHDOCTORBY_NAME_LOCATION="http://urncr.com/CarrxonWebServices/ws/search_by_fields.php?speciality_id=";
+	public static String URL_SEARCH_DOCTORS="http://urncr.com/CarrxonWebServices/ws/list_searched_doctors.php?";
 	public static String URL_SEARCHDOCTORBY_PATIENT="http://urncr.com/CarrxonWebServices/ws/searchDoctor.php?speciality_id=";
 	public static  String url_add_admin_doctor_info = "http://urncr.com/CarrxonWebServices/ws/add_admin_doctor.php?";
 	public static final String URL_COPAY_SAVING_CARDS = "http://urncr.com/CarrxonWebServices/ws/saving_cards.php?";
 	public static  final int ADD_DOCTOR = 0;
 	public static final String URL_SPECIALITIES = "http://urncr.com/CarrxonWebServices/ws/specialities.php";
+    public static final String URL_COUNTRIES = "http://urncr.com/CarrxonWebServices/ws/get_all_countries.php";
+	public static final String URL_STATES = "http://urncr.com/CarrxonWebServices/ws/get_all_states.php";
+	public static final String URL_CITIES = "http://urncr.com/CarrxonWebServices/ws/get_all_cities.php";
 	public static  final int UPDATE_DOCTOR = 1;
 	public static String saved_doc_url="http://urncr.com/CarrxonWebServices/ws/patient_docs.php?user_id=";
 	public static String download_url="http://urncr.com/CarrxonWebServices/ws/";
@@ -145,7 +152,7 @@ public class Cons
 		} 
 		catch (Exception ae)
 		{
-
+			ae.printStackTrace();
 
 		}
 		return str;
@@ -256,4 +263,21 @@ public class Cons
 			Log.e("Document Error", e.getMessage());
 		}
 	}
+
+
+    public static  String readFileFromRawDirectory(Context context , int resourceId){
+        InputStream iStream = context.getResources().openRawResource(resourceId);
+        ByteArrayOutputStream byteStream = null;
+        try {
+            byte[] buffer = new byte[iStream.available()];
+            iStream.read(buffer);
+            byteStream = new ByteArrayOutputStream();
+            byteStream.write(buffer);
+            byteStream.close();
+            iStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return byteStream.toString();
+    }
 }

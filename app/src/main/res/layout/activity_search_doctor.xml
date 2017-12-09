@@ -21,20 +21,35 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <EditText 
-        android:id="@+id/et_search_name"
+
+    <RelativeLayout
+        android:id="@+id/et_search_name_layout"
         android:layout_below="@+id/title_layout"
         android:layout_marginTop="10dp"
-        android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search by name"/>
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_search_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search by name" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
                 android:id="@+id/doctor_speciality_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_search_name"
+                android:layout_below="@+id/et_search_name_layout"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -170,20 +185,34 @@
             android:textColor="#606060" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_search_zip"
-        android:layout_marginTop="10dp"
+    <RelativeLayout
+        android:id="@+id/zip_layout"
         android:layout_below="@+id/city_layout"
-        android:padding="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search by Zip code"/>
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_search_zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Zip Code" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
 
     <Button
                 android:id="@+id/search_doctor_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_search_zip"
+                android:layout_below="@+id/zip_layout"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_one"
                 android:text="Search"
