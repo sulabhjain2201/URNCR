@@ -4,59 +4,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg" >
 
-    <RelativeLayout
-        android:id="@+id/title_layout"
-        android:layout_width="fill_parent"
+
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/titlebar" >
+        android:background="@color/red_color"
+        android:id="@+id/btnAdvertisement2"
 
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="UrNcr"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#dedede"
-            android:textStyle="bold" />
-    </RelativeLayout>
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:textSize="20dp"/>
 
-    <RelativeLayout
-        android:id="@+id/top_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title_layout"
-        android:layout_centerHorizontal="true" >
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/button_one"
-            android:text="Patient Registration"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" >
-        </Button>
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/register"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_one"
-            android:text="Login"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" >
-        </Button>
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/center_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+       android:layout_below="@+id/btnAdvertisement2" >
 
         <Button
             android:id="@+id/painManagemet_btn"
@@ -81,17 +50,7 @@
             android:textColor="@android:color/white" >
         </Button>
 
-        <Button
-            android:id="@+id/find_facility"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/find_physician"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_one"
-            android:text="Find a Nearby Facility"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" >
-        </Button>
+
 
 
 <!--         <Button -->
@@ -110,7 +69,7 @@
             android:id="@+id/btnSearchDoctor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/find_facility"
+            android:layout_below="@+id/find_physician"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_one"
             android:text="Search a Center"
@@ -143,23 +102,5 @@
         </Button>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="10dp" >
-
-        <Button
-            android:id="@+id/register_as_doctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_one"
-            android:text="Provider Registration"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" >
-        </Button>
-    </RelativeLayout>
 
 </RelativeLayout>

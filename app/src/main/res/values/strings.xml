@@ -78,6 +78,11 @@
     <string name="fetching_states">Fetching States</string>
     <string name="fetching_cities">Fetching Cities</string>
     <string name="defaultProgressMsg">Loading...</string>
+    <string name="provider_resisteration">Provider Registration</string>
+    <string name="patient_resisteration">Patient Registration</string>
+    <string name="login">Login</string>
+    <string name="find_nearby">Find NearBy Facility</string>
+    <string name="market">Market Place</string>
 
 
 </resources>
