@@ -7,7 +7,6 @@ import android.os.Message;
 
 import com.google.gson.Gson;
 
-import in.globalsoft.beans.BeansDoctorsByHospitalList;
 import in.globalsoft.beans.BeansListSpecialities;
 import in.globalsoft.preferences.AppPreferences;
 

@@ -55,11 +55,11 @@ public class AdapterSearchDoctorsList extends BaseAdapter{
 		
 		TextView docName= (TextView)convertView.findViewById(R.id.tv_doctor_name);
 		
-		docName.setText(listDoctor.get(position).getName().toString());
+		docName.setText(listDoctor.get(position).getName());
 		
 		TextView docAddress= (TextView)convertView.findViewById(R.id.tv_doctor_address);
 		
-		docAddress.setText(listDoctor.get(position).getVicinity().toString());
+		docAddress.setText(listDoctor.get(position).getVicinity());
 		return convertView;
 	}
 

@@ -10,7 +10,6 @@ import in.globalsoft.util.ParseInfo;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -111,6 +110,8 @@ public class LoginScreen extends Activity
 	{
 		ProgressDialog pd;
 		Context con;
+		String userName;
+		String password;
 
 		public LoginTask(Context con)
 		{
@@ -121,13 +122,14 @@ public class LoginScreen extends Activity
 		protected void onPreExecute() 
 		{
 			pd = ProgressDialog.show(con, null, "Loading...");
+			 userName = et_username.getText().toString();
+			 password = et_password.getText().toString();
 			super.onPreExecute();
 		}
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			String userName = et_username.getText().toString();
-			String password = et_password.getText().toString();
+
 			String url = null;
 			try {
 				url = Cons.url_login+"username="+URLEncoder.encode(userName,"utf-8")+"&password="+URLEncoder.encode(password,"utf-8")+"&type="+str_loginType+"&device_id="+regid;

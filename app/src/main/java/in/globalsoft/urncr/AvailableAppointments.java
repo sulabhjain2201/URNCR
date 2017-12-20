@@ -246,7 +246,7 @@ public class AvailableAppointments extends Activity {
 			for (int i = 0; i < Utility.startDates.size(); i++) {
 				itemvalue = df.format(itemmonth.getTime());
 				itemmonth.add(GregorianCalendar.DATE, 1);
-				items.add(Utility.startDates.get(i).toString());
+				items.add(Utility.startDates.get(i));
 			}
 			adapter.setItems(items);
 			adapter.notifyDataSetChanged();

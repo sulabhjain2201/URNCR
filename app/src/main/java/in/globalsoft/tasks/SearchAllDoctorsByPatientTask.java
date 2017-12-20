@@ -1,6 +1,5 @@
 	package in.globalsoft.tasks;
 
-import in.globalsoft.urncr.R;
 import in.globalsoft.urncr.RecentChatActivity;
 import in.globalsoft.urncr.RecentOfficeChat;
 import in.globalsoft.preferences.AppPreferences;

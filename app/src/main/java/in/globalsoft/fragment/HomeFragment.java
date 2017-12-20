@@ -13,10 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.special.ResideMenu.ResideMenu;
-
 import in.globalsoft.preferences.AppPreferences;
-import in.globalsoft.urncr.HomeScreen;
 import in.globalsoft.urncr.HospitalList;
 import in.globalsoft.urncr.ListBusinessPersons;
 import in.globalsoft.urncr.ListCopaySavingCardsActivity;
@@ -31,9 +28,8 @@ import in.globalsoft.urncr.SearchDoctor;
 
 public class HomeFragment extends Fragment {
 
-  private ResideMenu resideMenu;
   private View parentView;
-    private Button btn_painMgmtSpecialities,btn_findPhysian,btn_search_doctor,btnChatNow , btnSavingCards;
+    private Button btnPainMgmtSpecialities, btnFindPhysian, btnSearchDoctor,btnChatNow , btnSavingCards;
     AppPreferences appPref ;
     @Override
     public void onAttach(Context context) {
@@ -43,21 +39,10 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        parentView=inflater.inflate(R.layout.activity_home_screen,container,false);
+        parentView=inflater.inflate(R.layout.fragment_home_screen,container,false);
 
-        btn_painMgmtSpecialities = (Button) parentView.findViewById(R.id.painManagemet_btn);
-        btn_findPhysian = (Button) parentView.findViewById(R.id.find_physician);
+       init();
 
-        btn_search_doctor = (Button)parentView.findViewById(R.id.btnSearchDoctor);
-        btnChatNow = (Button) parentView.findViewById(R.id.btnChatNow);
-        btnSavingCards = (Button) parentView.findViewById(R.id.copay_saving_btn);
-
-
-
-        ((TextView)parentView.findViewById(R.id.btnAdvertisement2)).setText("Urgent Care\n$49/month per family\n(Cough, Cold , Flu , Sore throat , Ear pain, Eye and Skin issues , UTI , Refills)\n\n1-8333-987-4368\n\n1-833-9-URGENT");
-
-        HomeScreen parentActivity = (HomeScreen) getActivity();
-        resideMenu = parentActivity.getResideMenu();
 
 
         btnSavingCards.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +53,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_search_doctor.setOnClickListener(new View.OnClickListener() {
+        btnSearchDoctor.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -88,7 +73,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_findPhysian.setOnClickListener(new View.OnClickListener() {
+        btnFindPhysian.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -100,7 +85,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-        btn_painMgmtSpecialities.setOnClickListener(new View.OnClickListener() {
+        btnPainMgmtSpecialities.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -115,6 +100,20 @@ public class HomeFragment extends Fragment {
         return parentView;
     }
 
+    private void init() {
+
+        btnPainMgmtSpecialities = (Button) parentView.findViewById(R.id.painManagemet_btn);
+        btnFindPhysian = (Button) parentView.findViewById(R.id.find_physician);
+
+        btnSearchDoctor = (Button)parentView.findViewById(R.id.btnSearchDoctor);
+        btnChatNow = (Button) parentView.findViewById(R.id.btnChatNow);
+        btnSavingCards = (Button) parentView.findViewById(R.id.copay_saving_btn);
+
+
+
+        ((TextView)parentView.findViewById(R.id.btnAdvertisement2)).setText("Urgent Care\n$49/month per family\n(Cough, Cold , Flu , Sore throat , Ear pain, Eye and Skin issues , UTI , Refills)\n\n1-8333-987-4368\n\n1-833-9-URGENT");
+
+    }
 
 
     private void dialogForLoginRegister()

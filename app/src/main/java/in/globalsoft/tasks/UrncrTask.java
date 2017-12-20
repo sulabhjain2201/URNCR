@@ -2,7 +2,6 @@ package in.globalsoft.tasks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import in.globalsoft.urncr.R;
